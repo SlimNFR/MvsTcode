@@ -15,31 +15,32 @@ int main()
 {
 double a,b,d,n;
 int T = 0;
-int Tc=631.0;
+int Tc=631;
 double eps = 1.0;
 int size = Tc+1; //including T=0
 int T_arr[size];
 double me_arr[size];
-double TOL = 1e-7;
+double TOL = 1e-10;
 
-int N_iter = 50;
+int N_iter = 200;
 
 
 std::ofstream f1;
 f1.open("output.txt", std::ofstream::out);
 
 
-a = 5.0; //initial Guess
+a = 1000; //initial Guess
 
 T_arr[0] = 0; //Deal with the 0K case
 me_arr[0] = 1.0;
 
-T_arr[Tc+1]=Tc; //Deal with the T=Tc case
-me_arr[Tc+1]=0.0;
+T_arr[Tc]=Tc; //Deal with the T=Tc case
+me_arr[Tc]=0.0;
 
 
 for(T = 1;T<Tc; T++ )//Loop temperatures between 1K and Tc-1
 {
+    a = 1000;        
     if(f(a,T,Tc,eps) != 0.0) //If the initial point is not solution, then search
     {
         for(int i=1;i<=N_iter;i++)
@@ -48,7 +49,7 @@ for(T = 1;T<Tc; T++ )//Loop temperatures between 1K and Tc-1
             if(fabs(f(b,T,Tc,eps))<TOL) //If b is solution then stop 
             {
                 T_arr[T] = T;
-                me_arr[T] = (b*eps)/(3*Tc);
+                me_arr[T] = (b*eps*T)/(3*Tc);
                 break;
             }
             else
@@ -60,12 +61,12 @@ for(T = 1;T<Tc; T++ )//Loop temperatures between 1K and Tc-1
         }
         //if for loop didn't break, consider the solution to be the last point.
         T_arr[T] = T;
-        me_arr[T] = (b*eps)/(3*Tc);
+        me_arr[T] = (b*eps*T)/(3*Tc);
 
     }
     else{
         T_arr[T] = T;
-        me_arr[T] = (a*eps)/(3*Tc);
+        me_arr[T] = (a*eps*T)/(3*Tc);
     }
 }
 
