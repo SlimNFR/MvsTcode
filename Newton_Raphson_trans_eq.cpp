@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<fstream>
 
 double f(double x, double T, double Tc, double eps)
 {
@@ -22,6 +23,10 @@ double me_arr[size];
 double TOL = 1e-7;
 
 int N_iter = 50;
+
+
+std::ofstream f1;
+f1.open("output.txt", std::ofstream::out);
 
 
 a = 5.0; //initial Guess
@@ -67,10 +72,10 @@ for(T = 1;T<Tc; T++ )//Loop temperatures between 1K and Tc-1
 for(T=0;T<Tc+1;T++)
 {
 
-    std::cout<<T_arr[T]<<" "<<me_arr[T]<<"\n";
+    f1<<T_arr[T]<<" "<<me_arr[T]<<"\n";
 
 }
-
+f1.close();
 
 return 0;
 }
