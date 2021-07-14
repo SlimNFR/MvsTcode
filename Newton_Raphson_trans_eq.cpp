@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cmath>
 #include<fstream>
+#include<vector>
 
 double f(double x, double T, double Tc, double eps)
 {
@@ -11,8 +12,40 @@ double g(double x, double T, double Tc, double eps)
     return ( (eps/3.0)*(T/Tc)  + pow( (1.0/sinh(x)),2.0 ) - 1.0/(x*x)  );
 }
 
+double interpolareLagrange(std::vector<double> x,std::vector<double> y,double xcurent,double &yc)
+{
+    double p,suma;
+    int i,k;
+    int n = x.size();
+
+    suma=0.0;
+    for(k=0;k<=n-1;k++)
+    {
+
+    p=1;
+        for(i=0;i<=n-1;i++)
+        {
+
+            if(i!=k)p*=(xcurent-x[i])/(x[k]-x[i]);
+
+        }
+
+        suma+=y[k]*p;
+    }
+    yc=suma;
+
+    return 0;
+}
+
+
 int main()
 {
+
+std::vector<double>x_lagrange,y_lagrange;
+
+double xcurrent,ycurrent;
+xcurrent = 612.0;
+
 double a,b,d,n;
 int T = 0;
 int Tc=631;
@@ -70,12 +103,25 @@ for(T = 1;T<Tc; T++ )//Loop temperatures between 1K and Tc-1
     }
 }
 
+
 for(T=0;T<Tc+1;T++)
 {
 
     f1<<T_arr[T]<<" "<<me_arr[T]<<"\n";
 
+    if(T!=0 && T!=Tc && T%10 == 0){
+
+        x_lagrange.push_back(T_arr[T]);
+        y_lagrange.push_back(me_arr[T]);
+        std::cout<<"x and y: "<<x_lagrange.back()<<" "<<y_lagrange.back()<<"\n";
+    }
+
+    
 }
+
+interpolareLagrange(x_lagrange, y_lagrange, xcurrent, ycurrent);
+std::cout<<"Valoarea functiei in x="<<xcurrent<<" este: "<<ycurrent<<"\n"; 
+
 f1.close();
 
 return 0;
