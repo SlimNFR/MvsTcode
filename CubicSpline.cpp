@@ -17,7 +17,8 @@
 namespace CubicSpline{
     
 //---Variables
-
+std::vector<double>x_interpol,y_interpol;
+std::vector<double>b,c,d;
 
 
 //---Functions
@@ -34,7 +35,7 @@ double get_xinterval_id(std::vector<double>x_arr, double x, int &id)
     for(int i=0;i<x_arr.size()-1;i++)
     {
 
-        if(x_arr[i]<=x && x <= x_arr[i+1])
+        if(x_arr[i]<= x && x <= x_arr[i+1])
         {
 
             id = i;
@@ -94,44 +95,3 @@ double interpolate(int n, std::vector<double> x,std::vector<double> a,
 
 
 //---End of CubicSpline.cpp file.
-
-
-
-
-
-
-// int main() {
-//     /** Step 0 */
-//     int n;
-
-//     std::ifstream f1;
-//     std::ofstream f2;
-
-//     f1.open("input.txt", std::ifstream::in);
-//     f2.open("output_inter_cubic.txt", std::ofstream::out);
-
-//     f1>>n;
-//     n--;
-//     std::vector<double> x(n + 1), a(n + 1), c(n + 1), b(n), d(n);
-
-//     for (int i = 0; i < n + 1; ++i) f1>>x[i]>>a[i];
-
-
-//     CubicSplineInterpol(n,x,a,b,c,d);
-
-
-
-//     // Step 7 /
-//     std::cout<<"i, ai, bi, ci, di: \n";
-//     int id;
-//     for (int temp = 0; temp <= 631; temp++)
-//     {
-        
-//         get_xinterval_id(x, temp, id);
-//         std::cout<<temp<<" "<<a[id]<<" "<<b[id]<<" "<<c[id]<<" "<<d[id]<<"\n";
-//         f2<<temp<<" "<<CubicPolynome(a[id],b[id],c[id],d[id],temp,x[id])<<"\n";
-//     }
-    
-
-//     return 0;
-// }
