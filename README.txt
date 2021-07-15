@@ -8,3 +8,6 @@ The cpp and h files are found in the Code dir.
 use gnuplot plot_mVsT.gnu to plot the result 
 
 
+Cubic interpolation github:  https://gist.github.com/svdamani/1015c5c4b673c3297309
+Newton Raphson: https://deepanshubhatti.blogspot.com/2013/10/to-find-roots-of-transcendental.html
+
